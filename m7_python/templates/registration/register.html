@@ -1,0 +1,23 @@
+{% extends 'base.html' %}
+
+{% block 'content' %}
+<div class="container d-flex justify-content-center align-items-center vh-100">
+  <div class="card p-4 shadow-lg text-dark" style="max-width: 800px; width: 100%; background-color: #f8f9fa;">
+    <h3 class="text-center text-white bg-dark bg-body-dark border neon-text"> 
+      Registrate con tu email favorito 
+    </h3>
+  {% if error_message %}
+    <div class="error">{{ error_message }}</div>
+  {% endif %}
+  <h2></h2>
+
+    <form method="POST" action="">
+      {% csrf_token %}
+      {{ form.as_p }}
+    <button class="nav-link btn btn-primary text-white" type="submit">
+      Registrarse
+    </button>
+    </form>
+  </div>
+</div>
+{% endblock %}

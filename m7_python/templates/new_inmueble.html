@@ -1,0 +1,12 @@
+{% extends 'base.html' %}
+
+{% block 'content' %}
+<div class="container card p-4 shadow-lg text-dark" style="max-width: 800px; width: 100%; background-color: #cfd1f03a;">
+   <h1>Agregar nuevo inmueble </h1>
+   <form  method="POST">
+       {% csrf_token %}
+       {{u_form.as_p}}
+       <button type="submit">Registrar</button>
+   </form>
+</div>
+{% endblock %}

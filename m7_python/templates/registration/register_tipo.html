@@ -1,0 +1,12 @@
+{% extends 'index.html' %}
+{% block 'content' %}
+<div class="container card p-4 shadow-lg text-dark" style="max-width: 800px; width: 100%; background-color: #cfd1f03a;">
+   <h1>Crear nuevo usuario </h1>
+   <form method="POST">
+       {% csrf_token %}
+       {{ form.as_p}}
+       <button>Registrar</button>
+   </form>
+   
+</div>
+{% endblock %}

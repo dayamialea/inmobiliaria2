@@ -1,0 +1,29 @@
+{% extends 'base.html' %}
+
+
+{% block 'content' %}
+<div class="container mt-4 text-dark">
+    <div class="card shadow-lg">
+        {% if inmueble.imagen %}
+            <img src="{{ inmueble.imagen.url }}" class="card-img-top" alt="{{ inmueble.nombre_inmueble }}">
+        {% endif %}
+        <div class="card-body">
+            <h2 class="card-title">{{ inmueble.nombre_inmueble }}</h2>
+            <p class="card-text">
+                <strong>Descripción:</strong> {{ inmueble.descripcion }}<br>
+                <strong>Dirección:</strong> {{ inmueble.direccion }}<br>
+                <strong>M2 Construido:</strong> {{ inmueble.m2_construido }}<br>
+                <strong>Número de Baños:</strong> {{ inmueble.numero_banos }}<br>
+                <strong>Número de Habitaciones:</strong> {{ inmueble.numero_hab }}<br>
+                <strong>M2 Terreno:</strong> {{ inmueble.m2_terreno }}<br>
+                <strong>Número de Estacionamientos:</strong> {{ inmueble.numero_est }}<br>
+            </p>
+            {% if user.is_authenticated %}
+                <a href="{% url 'update_inmueble' pk=inmueble.pk %}" class="btn btn-warning">Modificar</a>
+                <a href="{% url 'delete_inmueble' pk=inmueble.pk %}" class="btn btn-danger">Eliminar</a>
+            {% endif %}
+            <a href="{% url 'inmuebles' %}" class="btn btn-secondary">Volver a la lista</a>
+        </div>
+    </div>
+</div>
+{% endblock %}

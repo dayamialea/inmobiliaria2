@@ -1,0 +1,93 @@
+{% extends 'base.html' %}
+
+{% block 'content' %}
+<div class="container d-flex justify-content-center align-items-center vh-80">
+    <div class="card p-4 text-dark" style="max-width: 800px; width: 80%;">
+        <h2 class="text-center text-white bg-dark bg-body-dark border neon-text">
+            Inmuebles Disponibles 
+        </h2>
+
+        {% if user.is_authenticated %}
+        <div class="row mb-4">
+            <div class="col-md-4 mb-3">
+                <form method="get" action="{% url 'inmuebles' %}">
+                    <div class="d-flex flex-column">
+                        <!-- Filtro de Región -->
+                        <div class="mb-3">
+                            <label for="region" class="form-label">Región:</label>
+                            <select name="region" id="region" class="form-select">
+                                <option value="">Seleccionar Región</option>
+                                {% for r in reg %}
+                                <option value="{{ r.id }}" {% if r.id|stringformat:"s" == request.GET.region %}selected{% endif %}>{{ r }}</option>
+                                {% endfor %}
+                            </select>
+                        </div>
+
+                        <!-- Filtro de Comuna -->
+                        <div class="mb-3">
+                            <label for="comuna" class="form-label">Comuna:</label>
+                            <select name="comuna" id="comuna" class="form-select">
+                                <option value="">Seleccionar Comuna</option>
+                                {% for c in com %}
+                                <option value="{{ c.id }}" {% if c.id|stringformat:"s" == request.GET.comuna %}selected{% endif %}>{{ c }}</option>
+                                {% endfor %}
+                            </select>
+                        </div>
+
+                        <!-- Botón de Filtrar -->
+                        <div>
+                            <button class="btn btn-info text-white" type="submit">
+                                Filtrar
+                            </button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+
+            <div class="container mt-4">
+                <div class="row">
+                    {% for inmueble in inmuebles %}
+                    <div class="col-12 col-sm-6 col-md-4 col-lg-4 mb-4">
+                        <div class="card h-100">
+                            <img src="{{ inmueble.imagen.url }}" class="card-img-top img-fluid" alt="{{ inmueble.nombre_inmueble }}">
+                            <div class="card-body">
+                                <h5 class="card-title">{{ inmueble.nombre_inmueble }}</h5>
+                                <p class="card-text">{{ inmueble.descripcion|slice:":100" }}...</p>
+                                <a href="{% url 'inmueble_detail' pk=inmueble.pk %}" class="btn btn-primary">Más Información</a>
+
+                                {% if user.is_authenticated and user == inmueble.id_user %}
+                                <div class="mt-2">
+                                    <a href="{% url 'update_inmueble' pk=inmueble.pk %}" class="btn btn-warning">Actualizar</a>
+                                    <form method="post" action="{% url 'delete_inmueble' pk=inmueble.pk %}" style="display:inline;">
+                                        {% csrf_token %}
+                                        <button type="submit" class="btn btn-danger">Eliminar</button>
+                                    </form>
+                                </div>
+                                {% endif %}
+                            </div>
+                        </div>
+                    </div>
+                    {% empty %}
+                    <div class="col-12">
+                        <div class="alert alert-info" role="alert">
+                            No hay viviendas disponibles.
+                        </div>
+                    </div>
+                    {% endfor %}
+                    <style>
+                        .card-img-top {
+                            object-fit: cover; /* Mantiene la proporción de la imagen */
+                            height: 140px; /* Ajusta la altura según tus necesidades */
+                        }
+                    </style>
+                </div>
+            </div>
+        </div>
+        {% else %}
+        <div class="alert alert-warning text-center">
+            Debe registrarse o iniciar sesión para ver los inmuebles disponibles.
+        </div>
+        {% endif %}
+    </div>
+</div>
+{% endblock %}

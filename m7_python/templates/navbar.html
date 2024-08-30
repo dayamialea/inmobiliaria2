@@ -1,0 +1,68 @@
+{% load static %}
+
+<div style="" class="container">
+    <nav class="navbar navbar-expand-lg navbar-light bg-light bg-white mb-2">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="#">
+                <img src="{% static 'images/logoInmobiliaria.png' %}" alt="Logo" width="200" height="100">
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
+                    
+                    <li class="nav-item">
+                        <a class="nav-link {% if request.resolver_match.url_name == 'login' %}page{% endif %}" href="{% url 'home' %}" aria-current="{% if request.resolver_match.url_name == 'bienvenido' %}page{% endif %}">
+                            
+                           Inicio
+                       </a>
+                    </li>
+
+                    {% if user.is_authenticated %}
+                    <li class="nav-item">
+                        <a class="nav-link {% if request.resolver_match.url_name == 'dashboard' %}active{% endif %}" href="{% url 'dashboard' %}" aria-current="{% if request.resolver_match.url_name == 'bienvenido' %}page{% endif %}">
+                            Dashboard
+                        </a>
+                    </li>
+                    {% endif %}
+                    <li class="nav-item">
+                        <a class="nav-link {% if request.resolver_match.url_name == 'inmuebles' %}active{% endif %}" href="{% url 'inmuebles' %}" aria-current="{% if request.resolver_match.url_name == 'acerca' %}page{% endif %}">
+                            Inmuebles
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link {% if request.resolver_match.url_name == 'contacto' %}active{% endif %}" href="{% url 'contacto' %}" aria-current="{% if request.resolver_match.url_name == 'contacto' %}page{% endif %}">
+                            Servicio al Cliente
+                        </a>
+                    </li>
+
+                    <li class="nav-item">
+                        <a class="nav-link" href="{% url 'register' %}">Registrarse</a>
+                      </li>
+                    {% if not user.is_authenticated %}
+                    <li class="nav-item">
+                        <a class="nav-link btn btn-primary text-white" href="{% url 'login' %}" aria-current="{% if request.resolver_match.url_name == 'login' %}page{% endif %}">
+                            Iniciar sesión
+                        </a>
+                    </li>
+                    {% endif %}
+                    {% if user.is_authenticated %}
+                    <li class="nav-item">
+                        <form method="post" action="{% url 'logout' %}">
+                            {% csrf_token %}
+                            <button type="submit" class="nav-link btn btn-danger text-white" aria-current="page">
+                                Cerrar sesión
+                            </button>
+                        </form>
+                    </li>
+                    {% else %}
+                     <a href="{% url 'login' %}"></a> 
+                     <a href="{% url 'register' %}"></a>
+                    {% endif %}
+                </ul>
+            </div>
+        </div>
+    </nav>
+  </div>
+  

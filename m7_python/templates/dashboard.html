@@ -1,0 +1,19 @@
+{% extends 'base.html' %}
+
+{% block 'content' %}
+<div class="container card p-4 shadow-lg text-dark" style="max-width: 800px; width: 100%; background-color: #cfd1f03a;">
+    <h1>Bienvenida, {{ user.username }}</h1>
+    <h5>First name: {{ user.first_name }}</h5>
+    <h5>Last name: {{ user.last_name }}</h5>
+    <h5>Email: {{ user.email }}</h5>
+    
+    <a class="btn-success" href="/update_profile/">Editar valores</a>
+    <br>
+        
+    <!-- Formulario para el logout -->
+    <form method="POST" action="{% url 'logout' %}" style="display:inline;">
+        {% csrf_token %}
+        <button class="btn-info" type="submit">Cerrar Sesión</button>
+    </form>
+</div>
+{% endblock %}

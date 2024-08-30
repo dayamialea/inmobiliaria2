@@ -1,0 +1,91 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block 'content' %}
+<div class="banner-container d-flex justify-content-center align-items-center" style="background-image: url('{% static "images/inmobiliaria.jpg" %}'); background-size: cover; background-position: center; height: 400px; opacity: 0.8;">
+  <div class="text-white text-center">
+    <h2>
+      Cotiza en línea
+    </h2>
+    <h1 class="fs-1">
+      Disfruta de tu nuevo hogar
+    </h1>
+    <p>
+      Proyectos inmobiliarios a lo largo de todo Chile
+    </p>
+    <a class="btn btn-secondary text-white nav-link {% if request.resolver_match.url_name == 'inmuebles' %}active{% endif %}" href="{% url 'inmuebles' %}" aria-current="{% if request.resolver_match.url_name == 'inmuebles' %}page{% endif %}">
+      VER INMUEBLES DISPONIBLES
+    </a>
+  </div>
+</div>
+     
+<div class="section-body text-center my-5">
+  <div class="text-dark mb-4">
+    <h1 style="font-weight: bold;">
+      Bienvenidos a la experiencia con Inmobiliaria Beta
+    </h1>
+    <p style="font-weight: bold;">
+      Descubre los beneficios al comprar tu nueva vivienda con nosotros
+    </p>
+  </div>
+  <div class="section-body d-flex justify-content-around align-items-start text-center my-5">
+    <!-- Primera columna -->
+    <div class="col-md-4">
+      <article>
+        <div class="article-icon mb-3">
+          <a href="#">
+            <img src="{% static 'images/satisfacion.png' %}" alt="" width="100" height="100">
+          </a>
+        </div>
+        <div class="text-dark">
+          <h2 class="article-title h4">
+            Calidad
+          </h2>
+          <p class="article-description">
+            Nos preocupamos de ofrecer la mejor calidad desde la obra hasta las terminaciones.
+          </p>
+        </div>
+      </article>
+    </div>
+  
+    <!-- Segunda columna -->
+    <div class="col-md-4">
+      <article>
+        <div class="article-icon mb-3">
+          <a href="#">
+            <img src="{% static 'images/postventa.png' %}" alt="" width="100" height="100">
+          </a>
+        </div>
+        <div class="text-dark">
+          <h2 class="article-title h4">
+            Post Venta
+          </h2>
+          <p class="article-description">
+            Te ayudamos en todo momento con tus inquietudes, dudas o sugerencias.
+          </p>
+        </div>
+      </article>
+    </div>
+  
+    <!-- Tercera columna -->
+    <div class="col-md-4">
+      <article>
+        <div class="article-icon mb-3">
+          <a href="#">
+            <img src="{% static 'images/financiamiento.png' %}" alt="" width="100" height="100">
+          </a>
+        </div>
+        <div class="text-dark">
+          <h2 class="article-title h4">
+            Financiamiento
+          </h2>
+          <p class="article-description">
+            Contáctate con nosotros y te asesoramos en todo lo que necesites.
+          </p>
+        </div>
+      </article>
+    </div>
+  </div>
+  
+</div>
+{% endblock %}
